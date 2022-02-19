@@ -1,9 +1,26 @@
-import React from 'react'
+import React from 'react';
+import Button from '@mui/material/Button';
 
-const CustomPrimaryButton = () => {
+const CustomPrimaryButton = ({ label, additionalStyles, disabled, onClick }) => {
     return (
-        <div>CustomPrimaryButton</div>
+        <Button
+            onClick={onClick}
+            variant="contained"
+            sx={{
+                bgcolor: '#5865F2',
+                color: "white",
+                textTransform: "none",
+                fontSize: "16px",
+                fontWeight: 500,
+                width: "100%",
+                height: "40px",
+            }}
+            style={additionalStyles ? additionalStyles : {}}
+            disabled={disabled}
+        >
+            {label}
+        </Button>
     )
 }
 
-export default CustomPrimaryButton
+export default CustomPrimaryButton;
