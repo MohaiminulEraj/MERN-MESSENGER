@@ -15,7 +15,7 @@ A simple Video Chat App with MERN Stack + Socket.io + WebRTC.
 
         npm install
 
-        cd..
+        cd ..
 
 #### 3. To run the code, run (Make sure you are in the root directory):
         

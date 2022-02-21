@@ -6,7 +6,7 @@ import {
 } from '../controllers/authController.js';
 // import { protect } from '../middleware/authMiddleware.js';
 
-router.route('/').post(registerUser);
+router.route('/register').post(registerUser);
 router.post('/login', loginUser);
 
 export default router

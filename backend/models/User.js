@@ -6,37 +6,29 @@ import crypto from 'crypto'
 const UserSchema = new mongoose.Schema({
     email: {
         type: String,
-        required: true,
         lowercase: true,
         trim: true,
-        unique: true
+        unique: true,
+        required: true
     },
     password: {
         type: String,
         required: true,
     },
     avatar: {
-        public_id: {
-            type: String,
-            // required: true,
-        },
-        url: {
-            type: String,
-            // required: true,
-        }
+        public_id: String,
+        url: String,
     },
     username: {
         type: String,
-        // required: true,
-        // default: "u",
-        // unique: true
+        unique: true,
+        required: true
     },
-    country: {
-        type: String,
-    },
-    city: {
-        type: String
-    },
+    country: String,
+    city: String,
+    public_ip: String,
+    timezone: String,
+    isp: String,
     resetPasswordToken: String,
     resetPasswordExpire: Date
 }, {

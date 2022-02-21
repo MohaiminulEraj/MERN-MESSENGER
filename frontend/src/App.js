@@ -3,6 +3,7 @@ import { Route, BrowserRouter as Router, Routes, Navigate } from 'react-router-d
 import Login from './components/auth/LoginPage/Login';
 import Register from './components/auth/RegisterPage/Register';
 import Dashboard from './components/home/Dashboard';
+import AlertNotification from './components/layout/AlertNotification';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <Route path="/" element={<Navigate to="/dashboard" replace={true} />} />
         </Routes>
       </Router>
+      <AlertNotification />
     </>
   )
 }

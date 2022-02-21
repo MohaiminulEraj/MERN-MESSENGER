@@ -2,7 +2,7 @@ import path from 'path'
 import express from 'express';
 import dotenv from 'dotenv';
 import colors from 'colors';
-// import connectDB from './config/db.js';
+import connectDB from './config/db.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
@@ -15,7 +15,7 @@ dotenv.config();
 const app = express();
 
 //connect to database
-// connectDB();
+connectDB();
 
 app.use(express.json()); // parsing body
 app.use('/api', cors()); // Enabling CORS for all /api routes

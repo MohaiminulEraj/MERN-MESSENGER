@@ -18,9 +18,11 @@ const loginUser = asyncHandler(async (req, res) => {
     }
     if (user && (await user.matchPassword(password))) {
         res.json({
-            _id: user._id,
-            email: user.email.toLowerCase(),
-            token: generateToken(user._id),
+            userDetails: {
+                email: user.email.toLowerCase(),
+                username: user.username,
+                token: generateToken(user._id),
+            }
         })
     } else {
         res.status(401)
@@ -32,7 +34,7 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-    const { email, password, country, city } = req.body
+    const { email, username, password, country, city, public_ip, timezone, isp } = req.body
 
     const userExists = await User.findOne({ email: email.toLowerCase() })
 
@@ -53,23 +55,27 @@ const registerUser = asyncHandler(async (req, res) => {
     }
     const user = await User.create({
         email: email.toLowerCase(),
+        username,
         password,
         avatar,
         country,
-        city
+        city,
+        public_ip,
+        timezone,
+        isp,
     })
     if (user) {
 
         res.status(201).json({
-            _id: user._id,
-            email: user.email,
-            verified: user.verified,
-            token: generateToken(user._id),
+            userDetails: {
+                email: user.email,
+                username: user.username,
+                token: generateToken(user._id),
+            }
         })
 
     } else {
-        res.status(400)
-        throw new Error('Invalid user data')
+        return res.status(500).send("Error occured. Please try again");
     }
 })
 
