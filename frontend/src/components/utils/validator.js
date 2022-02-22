@@ -13,7 +13,7 @@ export const validateRegisterForm = ({ email, username, password }) => {
     return isEmailValid && isUsernameValid && isPasswordValid;
 };
 
-const validateEmail = (email) => {
+export const validateEmail = (email) => {
     if (email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i))
         return true;
     return false;
