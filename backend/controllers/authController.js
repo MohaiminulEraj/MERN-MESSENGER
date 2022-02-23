@@ -1,8 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import generateToken from '../utils/generateToken.js';
 import User from '../models/User.js';
-import gravatar from 'gravatar';
-import normalize from 'normalize-url';
 
 
 // @desc    Auth user & get token
@@ -43,21 +41,10 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new Error('User already exists!')
     }
 
-    const avatar = {
-        url: normalize(
-            gravatar.url(email.toLowerCase(), {
-                s: '200',
-                r: 'pg',
-                d: 'mm'
-            }),
-            { forceHttps: true }
-        )
-    }
     const user = await User.create({
         email: email.toLowerCase(),
         username,
         password,
-        avatar,
         country,
         city,
         public_ip,

@@ -9,12 +9,12 @@ const DUMMY_FRIENDS = [
         isOnline: true,
     },
     {
-        id: 1,
+        id: 2,
         username: 'Alice',
         isOnline: false,
     },
     {
-        id: 1,
+        id: 3,
         username: 'Bob',
         isOnline: false,
     },

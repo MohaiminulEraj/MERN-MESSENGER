@@ -7,6 +7,8 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import authRoutes from './routes/authRoutes.js';
+import http from 'http';
+import { registerSocketServer } from './socketServer.js';
 
 // parsing .env file
 dotenv.config();
@@ -14,17 +16,20 @@ dotenv.config();
 // creating server instance
 const app = express();
 
-//connect to database
-connectDB();
-
 app.use(express.json()); // parsing body
-app.use('/api', cors()); // Enabling CORS for all /api routes
+app.use(cors()); // Enabling CORS for all /api routes
 app.use(cookieParser()); // parsing cookies
 // app.use(require('./router'));    // Registering all app-routers here
 
 
-
 app.use('/api/auth', authRoutes);
+
+const server = http.Server(app);
+registerSocketServer(server);
+
+
+//connect to database
+connectDB();
 
 const __dirname = path.resolve();
 
@@ -44,4 +49,9 @@ app.use(notFound)
 app.use(errorHandler)
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold));
+
+// app.listen(PORT, () => console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold));
+
+server.listen(PORT, () => {
+    console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold);
+});

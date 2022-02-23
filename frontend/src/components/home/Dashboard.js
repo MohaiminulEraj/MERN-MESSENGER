@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 import { logout } from '../utils/auth';
 import { connect } from 'react-redux';
 import { getActions } from '../../redux/actions/authActions';
+import { connectWithSocketServer } from '../../realtimeChat/socketConnection';
 
 const Wrapper = styled.div({
     width: '100%',
@@ -22,6 +23,7 @@ const Dashboard = ({ setUserDetails }) => {
             logout();
         } else {
             setUserDetails(JSON.parse(userDetails));
+            connectWithSocketServer();
         }
     }, [])
 
