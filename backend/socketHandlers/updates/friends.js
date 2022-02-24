@@ -1,6 +1,6 @@
 import User from '../../models/User.js';
 import FriendInvitation from '../../models/FriendInvitation.js';
-import { getActiveUser, getSocketServerInstance } from '../../serverStore.js';
+import { getActiveConnection, getSocketServerInstance } from '../../serverStore.js';
 import colors from 'colors';
 
 const updateFriendsPendingInvitation = async (userId) => {
@@ -10,7 +10,7 @@ const updateFriendsPendingInvitation = async (userId) => {
         }).populate('senderId', '_id username email');
 
         // check if the user is online
-        const receiverList = getActiveUser(userId);
+        const receiverList = getActiveConnection(userId);
         const io = getSocketServerInstance();
 
         receiverList.forEach((receiverSocketId) => {
@@ -27,7 +27,7 @@ const updateFriendsPendingInvitation = async (userId) => {
 const updateFriends = async (userId) => {
     try {
         // find all the users that are online
-        const receiverList = getActiveUser(userId);
+        const receiverList = getActiveConnection(userId);
 
         if (receiverList.length > 0) {
             const user = await User.findById(userId, { _id: 1, friends: 1 }).populate(

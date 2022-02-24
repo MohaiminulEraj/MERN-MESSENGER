@@ -2,7 +2,7 @@ import { Server } from 'socket.io';
 import { verifyTokenSocket } from './middleware/authSocketMiddleware.js';
 import { newConnectionHandler } from './socketHandlers/newConnectionHandler.js';
 import { disconnectHandler } from './socketHandlers/disconnectHandler.js';
-import { setSocketServerInstance } from './serverStore.js';
+import { setSocketServerInstance, getOnlineUsers } from './serverStore.js';
 
 export const registerSocketServer = (server) => {
 
@@ -17,13 +17,19 @@ export const registerSocketServer = (server) => {
 
     io.use((socket, next) => {
         verifyTokenSocket(socket, next);
-    })
+    });
+
+    const emitOnlineUsers = () => {
+        const onlineUsers = getOnlineUsers();
+        io.emit("online-users", { onlineUsers });
+    }
 
     io.on('connection', (socket) => {
         console.log('New client connected');
         console.log(socket.id);
 
         newConnectionHandler(socket, io);
+        emitOnlineUsers();
 
         socket.on('disconnect', () => {
             disconnectHandler(socket);
@@ -32,5 +38,10 @@ export const registerSocketServer = (server) => {
         //     console.log('Message: ' + msg);
         //     io.emit('chat message', msg);
         // });
+
+        // emitOnlineUsers();
+        setInterval(() => {
+            emitOnlineUsers();
+        }, [7000])
     });
 };
