@@ -3,7 +3,9 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import crypto from 'crypto'
 
-const UserSchema = new mongoose.Schema({
+const Schema = mongoose.Schema;
+
+const UserSchema = new Schema({
     email: {
         type: String,
         lowercase: true,
@@ -24,6 +26,7 @@ const UserSchema = new mongoose.Schema({
         unique: true,
         required: true
     },
+    friends: [{ type: Schema.Types.Object, ref: "User" }],
     country: String,
     city: String,
     public_ip: String,

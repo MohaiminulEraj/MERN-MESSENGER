@@ -46,10 +46,46 @@ export const register = async (data) => {
 
 // Protected routes
 
-const checkResponse = (exception) => {
+export const sendFriendInvitation = async (data) => {
+    try {
+        return await apiClient.post('/api/friend-invitation/invite', data);
+    } catch (exception) {
+        checkResponseCode(exception);
+        return {
+            error: true,
+            exception
+        };
+    }
+};
+
+export const acceptFriendInvitation = async (data) => {
+    try {
+        return await apiClient.post('/api/friend-invitation/accept', data);
+    } catch (exception) {
+        checkResponseCode(exception);
+        return {
+            error: true,
+            exception
+        };
+    }
+};
+
+export const rejectFriendInvitation = async (data) => {
+    try {
+        return await apiClient.post('/api/friend-invitation/reject', data);
+    } catch (exception) {
+        checkResponseCode(exception);
+        return {
+            error: true,
+            exception
+        };
+    }
+};
+
+const checkResponseCode = (exception) => {
     const responseCode = exception?.response?.status;
 
     if (responseCode) {
         (responseCode === 401 || responseCode === 403) && logout();
     }
-}
+};

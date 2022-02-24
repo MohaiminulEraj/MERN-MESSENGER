@@ -7,6 +7,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import authRoutes from './routes/authRoutes.js';
+import friendInvitationRoutes from './routes/friendInvitationRoutes.js';
 import http from 'http';
 import { registerSocketServer } from './socketServer.js';
 
@@ -23,6 +24,7 @@ app.use(cookieParser()); // parsing cookies
 
 
 app.use('/api/auth', authRoutes);
+app.use('/api/friend-invitation', friendInvitationRoutes);
 
 const server = http.Server(app);
 registerSocketServer(server);
