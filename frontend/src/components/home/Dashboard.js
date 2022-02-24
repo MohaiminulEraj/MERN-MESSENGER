@@ -32,7 +32,7 @@ const Dashboard = ({ setUserDetails }) => {
             <SideBar />
             <FriendsSideBar />
             <Messenger />
-            <AppBar />
+            <AppBar username={userDetails ? JSON.parse(userDetails).username : ''} />
         </Wrapper>
     )
 }

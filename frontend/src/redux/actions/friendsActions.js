@@ -14,7 +14,7 @@ export const getActions = (dispatch) => {
         rejectFriendInvitation: (data) => dispatch(rejectFriendInvitation(data)),
 
     };
-}
+};
 
 export const setPendingFriendsInvitations = (pendingFriendsInvitations) => {
     return {
@@ -23,7 +23,7 @@ export const setPendingFriendsInvitations = (pendingFriendsInvitations) => {
     };
 };
 
-export const setFriends = (friends) => {
+export const setFriendsList = (friends) => {
     return {
         type: friendsActions.SET_FRIENDS,
         friends,

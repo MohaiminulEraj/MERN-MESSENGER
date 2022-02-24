@@ -18,11 +18,48 @@ const updateFriendsPendingInvitation = async (userId) => {
                 pendingInvitations: pendingInvitations ? pendingInvitations : []
             });
         });
+
+    } catch (error) {
+        console.log(`${error}`.red.underline.bold);
+    }
+};
+
+const updateFriends = async (userId) => {
+    try {
+        // find all the users that are online
+        const receiverList = getActiveUser(userId);
+
+        if (receiverList.length > 0) {
+            const user = await User.findById(userId, { _id: 1, friends: 1 }).populate(
+                'friends',
+                '_id username email'
+            );
+            if (user) {
+                const friendsList = user.friends.map((f) => {
+                    return {
+                        id: f._id,
+                        email: f.email,
+                        username: f.username,
+                    };
+                });
+
+                // get io server instance
+                const io = getSocketServerInstance();
+
+                receiverList.forEach((receiverSocketId) => {
+                    io.to(receiverSocketId).emit('friends-list', {
+                        friends: friendsList ? friendsList : [],
+                    })
+                })
+            }
+        }
+
     } catch (error) {
         console.log(`${error}`.red.underline.bold);
     }
 };
 
 export {
-    updateFriendsPendingInvitation
+    updateFriendsPendingInvitation,
+    updateFriends
 }

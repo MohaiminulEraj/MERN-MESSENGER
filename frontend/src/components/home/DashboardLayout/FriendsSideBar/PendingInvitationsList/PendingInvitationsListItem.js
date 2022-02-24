@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Tooltip, Typography, Box } from '@mui/material';
 import Avatar from '../../../../layout/Avatar';
 import InvitationDecisionButtons from './InvitationDecisionButtons';
+import { connect } from 'react-redux';
+import { getActions } from '../../../../../redux/actions/friendsActions';
 
 const PendingInvitationsListItem = ({
     id,
@@ -59,4 +61,10 @@ const PendingInvitationsListItem = ({
     )
 }
 
-export default PendingInvitationsListItem;
+const mapActionsToProps = (dispatch) => {
+    return {
+        ...getActions(dispatch)
+    }
+}
+
+export default connect(null, mapActionsToProps)(PendingInvitationsListItem);

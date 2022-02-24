@@ -16,9 +16,12 @@ const MainContainer = styled.div({
     padding: "0 15px",
 });
 
-const AppBar = () => {
+const AppBar = ({ username }) => {
     return (
         <MainContainer>
+            <div style={{ color: 'white' }}>
+                Hi {username}!
+            </div>
             <DropDownMenu />
         </MainContainer>
     )

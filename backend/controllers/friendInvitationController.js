@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/User.js';
 import FriendInvitation from '../models/FriendInvitation.js';
-import { updateFriendsPendingInvitation } from '../socketHandlers/updates/friends.js';
+import { updateFriendsPendingInvitation, updateFriends } from '../socketHandlers/updates/friends.js';
 
 const inviteUser = asyncHandler(async (req, res) => {
     const { targetedEmail } = req.body;
@@ -78,11 +78,21 @@ const acceptUser = asyncHandler(async (req, res) => {
     // delete invitation
     await FriendInvitation.findByIdAndDelete(id);
 
+
+    // update friends list of the user if the user is online
+    updateFriends(senderId.toString());
+    updateFriends(receiverId.toString());
+
+    // update list of friends pending invitation
+    updateFriendsPendingInvitation(receiverId.toString());
+
+    return res.status(200).send('Friend added!');
+
 });
 
 const rejectUser = asyncHandler(async (req, res) => {
     const { id } = req.body;
-    const { userId } = req.user;
+    const userId = req.user.id;
 
     // remove invitation from friendInvitation collection
     const invitationExists = await FriendInvitation.exists({ _id: id });
@@ -90,7 +100,9 @@ const rejectUser = asyncHandler(async (req, res) => {
     if (invitationExists) {
         await FriendInvitation.findByIdAndDelete(id);
     }
-
+    // update pending invitations
+    updateFriendsPendingInvitation(userId);
+    return res.status(200).send('Invitation rejected!');
 });
 
 export {
