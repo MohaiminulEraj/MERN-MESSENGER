@@ -33,15 +33,11 @@ export const registerSocketServer = (server) => {
 
         socket.on('disconnect', () => {
             disconnectHandler(socket);
+            emitOnlineUsers();
         });
         // socket.on('chat message', (msg) => {
         //     console.log('Message: ' + msg);
         //     io.emit('chat message', msg);
         // });
-
-        // emitOnlineUsers();
-        setInterval(() => {
-            emitOnlineUsers();
-        }, [7000])
     });
 };
