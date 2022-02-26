@@ -20,7 +20,7 @@ const Avatar = ({ username, large }) => {
         <AvatarPreview
             style={large ? { height: '80px', width: '80px' } : {}}
         >
-            {username.charAt(0).toUpperCase() + username.charAt(1).toLowerCase()}
+            {username?.charAt(0).toUpperCase() + username?.charAt(1).toLowerCase()}
             {/* {username.substring(0, 1).toUpperCase() + username.substring(1, 2).toLowerCase()} */}
         </AvatarPreview>
     )

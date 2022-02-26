@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import DropDownMenu from './DropDownMenu';
+import ChosenOptionLabel from './ChosenOptionLabel';
 
 const MainContainer = styled.div({
     position: 'absolute',
@@ -19,9 +20,7 @@ const MainContainer = styled.div({
 const AppBar = ({ username }) => {
     return (
         <MainContainer>
-            <div style={{ color: 'white' }}>
-                Hi {username}!
-            </div>
+            <ChosenOptionLabel me={username} />
             <DropDownMenu />
         </MainContainer>
     )

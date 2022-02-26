@@ -11,7 +11,6 @@ const MainContainer = styled.div({
 const checkUsers = (friends = [], onlineUsers = []) => {
     friends.forEach((f) => {
         const isUserOnline = onlineUsers.find((user) => user.userId === f.id);
-        console.log(isUserOnline)
         f.isOnline = isUserOnline ? true : false;
     })
     return friends;
