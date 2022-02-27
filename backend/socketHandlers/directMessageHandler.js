@@ -4,13 +4,14 @@ import { updateChatHistory } from './updates/chat.js';
 
 const directMessageHandler = async (socket, data) => {
     try {
+        console.log('direct msg evnt handler!')
         const userId = socket.user.id;
         const { receiverUserId, content } = data;
 
         // create new message
-        const message = new Message.create({
+        const message = await Message.create({
             content: content,
-            authorId: userId,
+            author: userId,
             date: new Date(),
             type: 'DIRECT',
         });
@@ -23,15 +24,15 @@ const directMessageHandler = async (socket, data) => {
         if (conversation) {
             conversation.messages.push(message._id);
             await conversation.save();
-            updateChatHistory(conversation._id.toString());
 
-        } else {
-            const newConversation = new Conversation({
-                participants: [userId, receiverUserId],
-                messages: [message._id],
-            });
-            await newConversation.save();
             updateChatHistory(conversation._id.toString());
+        } else {
+            const newConversation = await Conversation.create({
+                messages: [message._id],
+                participants: [userId, receiverUserId],
+            });
+
+            updateChatHistory(newConversation._id.toString());
         }
 
 

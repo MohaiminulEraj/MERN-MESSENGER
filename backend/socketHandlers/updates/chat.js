@@ -26,7 +26,7 @@ const updateChatHistory = asyncHandler(async (
             });
         }
 
-        conversation.participants.forEach(userId => {
+        conversation.participants.forEach((userId) => {
             const activeConnections = getActiveConnection(userId.toString());
 
             activeConnections.forEach(socketId => {
