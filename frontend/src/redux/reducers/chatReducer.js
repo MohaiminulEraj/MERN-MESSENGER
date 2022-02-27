@@ -1,8 +1,8 @@
 import { chatActions } from '../actions/chatActions';
 
 const initState = {
-    chosenChatDetails: {},
-    chatTypes: {},
+    chosenChatDetails: null,
+    chatType: null,
     messages: [],
 };
 
@@ -21,7 +21,6 @@ const reducer = (state = initState, action) => {
                 ...state,
                 messages: action.messages,
             };
-
         default:
             return state;
     }

@@ -39,19 +39,20 @@ const Message = ({ content, sameAuthor, username, date, sameDay }) => {
             </SameAuthorMessageContent>
         );
     }
-    return <MainContainer>
-        <AvatarContainer>
-            <Avatar username={username} />
-        </AvatarContainer>
-        <MessageContainer>
-            <Typography style={{ fontSize: "16px", color: "white" }}>
-                {username}{" "}
-                <span style={{ fontSize: "12px", color: "#72767d" }}>{date}</span>
-            </Typography>
-            <MessageContent>{content}</MessageContent>
-        </MessageContainer>
-    </MainContainer>
-
-}
+    return (
+        <MainContainer>
+            <AvatarContainer>
+                <Avatar username={username} />
+            </AvatarContainer>
+            <MessageContainer>
+                <Typography style={{ fontSize: "16px", color: "white" }}>
+                    {username}{" "}
+                    <span style={{ fontSize: "12px", color: "#72767d" }}>{date}</span>
+                </Typography>
+                <MessageContent>{content}</MessageContent>
+            </MessageContainer>
+        </MainContainer>
+    );
+};
 
 export default Message;

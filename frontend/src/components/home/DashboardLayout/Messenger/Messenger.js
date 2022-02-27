@@ -14,8 +14,8 @@ const MainContainer = styled.div({
 const Messenger = ({ chosenChatDetails }) => {
     return (
         <MainContainer>
-            {!Object.keys(chosenChatDetails).length > 0 ? (
-                < WelcomeMessage />
+            {!chosenChatDetails ? (
+                <WelcomeMessage />
             ) : (
                 <MessengerContent chosenChatDetails={chosenChatDetails} />
             )}

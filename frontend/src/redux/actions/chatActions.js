@@ -11,20 +11,20 @@ export const chatActions = {
 
 export const getActions = (dispatch) => {
     return {
-        setChosenChatDetails: (chatDetails, chatType) =>
-            dispatch(setChosenChatDetails(chatDetails, chatType)),
+        setChosenChatDetails: (details, chatType) =>
+            dispatch(setChosenChatDetails(details, chatType)),
     };
 };
 
-export const setChosenChatDetails = (chatDetails, chatType) => {
+export const setChosenChatDetails = (chatDetails, type) => {
     return {
         type: chatActions.SET_CHOSEN_CHAT_DETAILS,
-        chatType: chatType,
-        chatDetails: chatDetails,
+        chatType: type,
+        chatDetails,
     };
 };
 
-export const setMessage = (messages) => {
+export const setMessages = (messages) => {
     return {
         type: chatActions.SET_MESSAGES,
         messages,
