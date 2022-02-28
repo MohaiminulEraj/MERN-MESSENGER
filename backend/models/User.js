@@ -27,13 +27,6 @@ const UserSchema = new Schema({
         required: true
     },
     friends: [{ type: Schema.Types.Object, ref: "User" }],
-    country: String,
-    city: String,
-    public_ip: String,
-    timezone: String,
-    isp: String,
-    resetPasswordToken: String,
-    resetPasswordExpire: Date
 }, {
     timestamps: true
 });
@@ -58,20 +51,20 @@ UserSchema.methods.getJwtToken = function () {
     });
 }
 
-// Generate password reset token
-UserSchema.methods.getResetPasswordToken = function () {
-    // Generate token
-    const resetToken = crypto.randomBytes(20).toString('hex');
+// // Generate password reset token
+// UserSchema.methods.getResetPasswordToken = function () {
+//     // Generate token
+//     const resetToken = crypto.randomBytes(20).toString('hex');
 
-    // Hash and set to resetPasswordToken
-    this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex')
+//     // Hash and set to resetPasswordToken
+//     this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex')
 
-    // Set token expire time
-    this.resetPasswordExpire = Date.now() + 30 * 60 * 1000
+//     // Set token expire time
+//     this.resetPasswordExpire = Date.now() + 30 * 60 * 1000
 
-    return resetToken
+//     return resetToken
 
-}
+// }
 
 const User = mongoose.model('User', UserSchema)
 

@@ -33,7 +33,7 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-    const { email, username, password, country, city, public_ip, timezone, isp } = req.body
+    const { email, username, password } = req.body
 
     const userExists = await User.findOne({ email: email.toLowerCase() })
 
@@ -46,11 +46,6 @@ const registerUser = asyncHandler(async (req, res) => {
         email: email.toLowerCase(),
         username,
         password,
-        country,
-        city,
-        public_ip,
-        timezone,
-        isp,
     })
     if (user) {
 

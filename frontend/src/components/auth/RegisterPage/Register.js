@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import AuthBox from '../../layout/AuthBox';
 import { Typography } from '@mui/material';
 import RegisterPageForms from './RegisterPageForms';
@@ -15,36 +14,22 @@ const Register = ({ register }) => {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [country, setCountry] = useState('');
-    const [city, setCity] = useState('');
-    const [public_ip, setPublicIP] = useState('');
-    const [timezone, setTimezone] = useState('');
-    const [isp, setISP] = useState('');
     const [isFormValid, setIsFormValid] = useState(false);
 
-    const ipLookUp = async () => {
-        const res = await axios.get('http://ip-api.com/json');
-        setCountry(res?.data?.country);
-        setCity(res?.data?.city);
-        setPublicIP(res?.data?.query);
-        setTimezone(res?.data?.timezone);
-        setISP(res?.data?.isp);
-    }
-
-    useEffect(() => {
-        ipLookUp();
-    }, []);
+    // const ipLookUp = async () => {
+    //     const res = await axios.get('http://ip-api.com/json');
+    //     setCountry(res?.data?.country);
+    //     setCity(res?.data?.city);
+    //     setPublicIP(res?.data?.query);
+    //     setTimezone(res?.data?.timezone);
+    //     setISP(res?.data?.isp);
+    // }
 
     const handleRegister = () => {
         const userDetails = {
             email,
             username,
             password,
-            country,
-            city,
-            public_ip,
-            timezone,
-            isp,
         };
         register(userDetails, navigate);
     }
