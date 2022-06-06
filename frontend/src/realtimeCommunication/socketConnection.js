@@ -13,7 +13,8 @@ export const connectWithSocketServer = (userDetails) => {
 
     const jwtToken = userDetails.token;
 
-    socket = io.connect('https://eraj-messenger.herokuapp.com', {
+    // socket = io.connect('https://eraj-messenger.herokuapp.com', {
+    socket = io.connect('http://localhost:5000', {
         auth: {
             token: jwtToken,
         },
